@@ -1,13 +1,19 @@
 from selenium import webdriver
-
+import unittest
 
 #firefoxOptions = webdriver.FirefoxOptions()
 #firefoxOptions.headless=True
 
-browser = webdriver.Firefox()
 
-browser.get("http://localhost:8000")
+class NewVsitorTest(unittest.TestCase):
 
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+
+    def tearDown(self):
+        self.browser.quit()
+        
+    def test_can_start_a_list_and_retrieve_it_later(self):
 
 # Edith ouviu falar que agora a aplicação online de lista de tarefas
 
@@ -16,13 +22,16 @@ browser.get("http://localhost:8000")
 # Ela decide verificar a homepage
 
  
+        self.browser.get("http://localhost:8000")
 
 # Ela percebe que o título da página e o cabeçalho mencionam
 
 # listas de tarefas com prioridade (priority to-do)
 
  
-assert 'priority to-do' in browser.title
+        self.assertIn('priority to-do', self.browser.title)
+        self.fail('Finish the test!')
+
 
 # Ela é convidada a inserir um item de tarefa e a prioridade da 
 
@@ -70,4 +79,5 @@ assert 'priority to-do' in browser.title
 
 # Ela acessa essa URL -- sua lista de tarefas continua lá.
 
-browser.quit()
+if __name__ == '__main__':
+	unittest.main()
