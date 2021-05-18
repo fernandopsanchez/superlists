@@ -10,7 +10,10 @@ class NewVsitorTest(unittest.TestCase):
 
 	def tearDown(self):
 		self.browser.quit()
-
+	def check_for_row_in_list_table(self, row_text):
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text, [row.text for row in rows]) 
 	def test_can_start_a_list_and_retrieve_it_later(self):
                 # Edith ouviu falar que agora a aplicação online de lista de tarefas
 
@@ -47,13 +50,9 @@ class NewVsitorTest(unittest.TestCase):
 
                 # como um item em uma lista de tarefas
 		inputbox.send_keys(Keys.ENTER)
-		time.sleep(1)
-
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Comprar anzol',[row.text for row in rows])
-	    
+		self.check_for_row_in_list_table('1: Comprar anzol')
                 # Ainda continua havendo uma caixa de texto convidando-a a 
+		time.sleep(1)
 
                 # acrescentar outro item. Ela insere "Comprar cola instantâne"
 
@@ -61,7 +60,7 @@ class NewVsitorTest(unittest.TestCase):
 
                 # por algum tempo
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		inputbox.send_keys('Comprar cola instantânea')
+		self.check_for_row_in_list_table('1: Comprar cola instantânea')
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
 
@@ -69,10 +68,6 @@ class NewVsitorTest(unittest.TestCase):
 
                 # itens em sua lista e as respectivas prioridades
  
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Comprar anzol',[row.text for row in rows])
-		self.assertIn('2: Comprar cola instantâneal',[row.text for row in rows])
 
                 # Edith se pergunta se o site lembrará de sua lista. Então
 
@@ -81,7 +76,6 @@ class NewVsitorTest(unittest.TestCase):
                 # pequeno texto explicativo para isso.
 
                 # Ela acessa essa URL -- sua lista de tarefas continua lá.
-                self.fail('Finish the test!')
 
 if __name__ == '__main__':
 	unittest.main()
