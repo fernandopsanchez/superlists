@@ -6,6 +6,13 @@
 		<h1>Your priority to-do</h1>
 		<form method="POST">
 			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+			<br>
+			<input type="radio" id="id_priority" name="priority" value="Proridade Baixa">
+			<label for="male">Prioridade Baixa</label><br>
+			<input type="radio" id="id_priority" name="priority" value="Proridade Média">
+			<label for="female">Prioridade Média</label><br>
+			<input type="radio" id="id_priority" name="priority" value="Proridade Alta">
+			<label for="other">Prioridade Alta</label>
 			{% csrf_token %}
 		</form>
 		<table id="id_list_table">

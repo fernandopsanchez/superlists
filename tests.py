@@ -1,8 +1,10 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
+#class NewVsitorTest(LiveServerTestCase):
 class NewVsitorTest(unittest.TestCase):
 
 	def setUp(self):
@@ -18,9 +20,10 @@ class NewVsitorTest(unittest.TestCase):
                 # Edith ouviu falar que agora a aplicação online de lista de tarefas
 
                 # aceita definir prioridades nas tarefas do tipo baixa, média e alta
+		self.browser.get("http://localhost:8000")
 
                 # Ela decide verificar a homepage
-		self.browser.get("http://localhost:8000")
+
                 # Ela percebe que o título da página e o cabeçalho mencionam
 
                 # listas de tarefas com prioridade (priority to-do)
@@ -33,6 +36,7 @@ class NewVsitorTest(unittest.TestCase):
 
                 # mesma imediatamente
 		inputbox = self.browser.find_element_by_id('id_new_item')
+		radio  = self.browser.find_element_by_id('id_priority')
 		self.assertEqual(
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item'
@@ -47,12 +51,12 @@ class NewVsitorTest(unittest.TestCase):
                 # Quando ela tecla enter, a página é atualizada, e agora
 
 		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
                 # a página lista "1 - Comprar anzol - prioridade alta"
 
+		self.check_for_row_in_list_table('1: Comprar anzol')
                 # como um item em uma lista de tarefas
-		#self.check_for_row_in_list_table('Comprar anzol')
                 # Ainda continua havendo uma caixa de texto convidando-a a 
-		time.sleep(1)
 
                 # acrescentar outro item. Ela insere "Comprar cola instantâne"
 
@@ -65,7 +69,6 @@ class NewVsitorTest(unittest.TestCase):
                 # por algum tempo
 		#inputbox.send_keys(Keys.ENTER)
 
-		self.check_for_row_in_list_table('1: Comprar anzol')
 		self.check_for_row_in_list_table('2: Comprar cola instantânea')
                 # A página é atualizada novamente e agora mostra os dois
 
@@ -78,6 +81,5 @@ class NewVsitorTest(unittest.TestCase):
                 # pequeno texto explicativo para isso.
 
                 # Ela acessa essa URL -- sua lista de tarefas continua lá.
-
 if __name__ == '__main__':
 	unittest.main()
