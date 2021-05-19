@@ -46,28 +46,30 @@ class NewVsitorTest(unittest.TestCase):
 
                 # Quando ela tecla enter, a página é atualizada, e agora
 
+		inputbox.send_keys(Keys.ENTER)
                 # a página lista "1 - Comprar anzol - prioridade alta"
 
                 # como um item em uma lista de tarefas
-		inputbox.send_keys(Keys.ENTER)
-		self.check_for_row_in_list_table('1: Comprar anzol')
+		#self.check_for_row_in_list_table('Comprar anzol')
                 # Ainda continua havendo uma caixa de texto convidando-a a 
 		time.sleep(1)
 
                 # acrescentar outro item. Ela insere "Comprar cola instantâne"
 
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Comprar cola instantânea')
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
                 # e assinala prioridade baixa pois ela ainda tem cola suficiente
 
                 # por algum tempo
-		inputbox = self.browser.find_element_by_id('id_new_item')
-		self.check_for_row_in_list_table('1: Comprar cola instantânea')
-		inputbox.send_keys(Keys.ENTER)
-		time.sleep(1)
+		#inputbox.send_keys(Keys.ENTER)
 
+		self.check_for_row_in_list_table('1: Comprar anzol')
+		self.check_for_row_in_list_table('2: Comprar cola instantânea')
                 # A página é atualizada novamente e agora mostra os dois
 
                 # itens em sua lista e as respectivas prioridades
- 
 
                 # Edith se pergunta se o site lembrará de sua lista. Então
 
