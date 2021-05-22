@@ -4,8 +4,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
-#class NewVsitorTest(LiveServerTestCase):
-class NewVsitorTest(unittest.TestCase):
+class NewVsitorTest(LiveServerTestCase):
+#class NewVsitorTest(unittest.TestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -20,8 +20,9 @@ class NewVsitorTest(unittest.TestCase):
                 # Edith ouviu falar que agora a aplicação online de lista de tarefas
 
                 # aceita definir prioridades nas tarefas do tipo baixa, média e alta
-		self.browser.get("http://localhost:8000")
 
+#		self.browser.get("http://localhost:8000")
+		self.browser.get(self.live_server_url)
                 # Ela decide verificar a homepage
 
                 # Ela percebe que o título da página e o cabeçalho mencionam
@@ -36,7 +37,6 @@ class NewVsitorTest(unittest.TestCase):
 
                 # mesma imediatamente
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		radio  = self.browser.find_element_by_id('id_priority')
 		self.assertEqual(
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item'
@@ -46,10 +46,10 @@ class NewVsitorTest(unittest.TestCase):
 
                 # e assinala prioridade alta no campo de seleção de prioridades
 		inputbox.send_keys('Comprar anzol')
-
-
+		#radio  = self.browser.find_element_by_id('id_priority_h')
+		#radio.click()
                 # Quando ela tecla enter, a página é atualizada, e agora
-
+		#time.sleep(1)
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
                 # a página lista "1 - Comprar anzol - prioridade alta"
@@ -65,7 +65,6 @@ class NewVsitorTest(unittest.TestCase):
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
                 # e assinala prioridade baixa pois ela ainda tem cola suficiente
-
                 # por algum tempo
 		#inputbox.send_keys(Keys.ENTER)
 
@@ -81,5 +80,5 @@ class NewVsitorTest(unittest.TestCase):
                 # pequeno texto explicativo para isso.
 
                 # Ela acessa essa URL -- sua lista de tarefas continua lá.
-if __name__ == '__main__':
-	unittest.main()
+#if __name__ == '__main__':
+#	unittest.main()
